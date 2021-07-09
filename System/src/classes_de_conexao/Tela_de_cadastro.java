@@ -39,6 +39,7 @@ public class Tela_de_cadastro extends JFrame {
 	private JTextField tfBusca;
 	private JScrollPane scrollPane;
 	private JTable tbDados;
+	private JButton btnAtualizar;
 
 	/**
 	 * Launch the application.
@@ -147,6 +148,59 @@ public class Tela_de_cadastro extends JFrame {
 		});
 		btnSalvar.setBounds(10, 17, 89, 23);
 		panel.add(btnSalvar);
+		
+		btnAtualizar = new JButton("Atualizar");
+		btnAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if(tfID.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Abra os dados para realizar alterações");
+
+				}else {
+
+					try {
+					Connection con = Conexao.faz_conexao();
+					String sql = "update dados_senhas set usuario=?, senha=? where id=?";
+
+					
+					PreparedStatement stmt = con.prepareStatement(sql);
+					
+
+					stmt.setString(1, tfUsuario.getText());
+					stmt.setString(2,tfSenha.getText());
+					stmt.setString(3, tfID.getText());
+					
+
+					stmt.execute();
+					stmt.close();
+					con.close();
+
+					
+					JOptionPane.showMessageDialog(null, "Usuario atualizado!");
+
+					
+					stmt.close();
+					con.close();
+
+								
+
+					tfUsuario.setText("");
+					tfSenha.setText("");
+					tfID.setText("");
+				
+
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+
+				}	
+						
+
+				}
+				
+			}
+		});
+		btnAtualizar.setBounds(124, 17, 89, 23);
+		panel.add(btnAtualizar);
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Abrir dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -298,7 +352,7 @@ public class Tela_de_cadastro extends JFrame {
 			 */
 			private static final long serialVersionUID = 1L;
 			boolean[] columnEditables = new boolean[] {
-				false, true, true
+				false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
