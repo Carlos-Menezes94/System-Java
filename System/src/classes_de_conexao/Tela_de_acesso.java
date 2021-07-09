@@ -83,8 +83,48 @@ public class Tela_de_acesso extends JFrame {
 		JButton btnEntrar = new JButton("Entrar");
 		btnEntrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				try {
+
+					Connection con = Conexao.faz_conexao();
+					String sql = "select *from dados_senhas where usuario=? and senha=?";
+
+					
+
+					PreparedStatement stmt = con.prepareStatement(sql);
+				
+
+					stmt.setString(1, tfUsuario.getText());
+					stmt.setString(2, new String(pfSenha.getPassword()));
+
+					
+
+					ResultSet rs = stmt.executeQuery();
+
+					
+
+					if(rs.next()) {			
+
+						
+						
+						setVisible(false);
+					}else {
+						JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto :(");
+
+					}
+
+					
+
+					stmt.close();
+					con.close();
+
+									
+
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+
 				}
-			
+			}
 		});
 		btnEntrar.setBounds(180, 239, 116, 28);
 		contentPane.add(btnEntrar);
