@@ -12,6 +12,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -19,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class Tela_de_cadastro extends JFrame {
 
@@ -34,6 +37,8 @@ public class Tela_de_cadastro extends JFrame {
 	private JPanel panel_1;
 	private JButton btnAbrir;
 	private JTextField tfBusca;
+	private JScrollPane scrollPane;
+	private JTable tbDados;
 
 	/**
 	 * Launch the application.
@@ -99,7 +104,7 @@ public class Tela_de_cadastro extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "A\u00E7\u00F5es", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(20, 222, 414, 64);
+		panel.setBounds(20, 245, 414, 51);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
@@ -140,7 +145,7 @@ public class Tela_de_cadastro extends JFrame {
 				
 			}
 		});
-		btnSalvar.setBounds(10, 30, 89, 23);
+		btnSalvar.setBounds(10, 17, 89, 23);
 		panel.add(btnSalvar);
 		
 		panel_1 = new JPanel();
@@ -213,5 +218,93 @@ public class Tela_de_cadastro extends JFrame {
 		tfBusca.setBounds(114, 18, 86, 22);
 		panel_1.add(tfBusca);
 		tfBusca.setColumns(10);
+		
+		JButton btnListarDados = new JButton("Listar dados");
+		btnListarDados.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+
+					Connection con = Conexao.faz_conexao();
+
+					String sql = "select *from dados_senhas";
+
+					
+
+					PreparedStatement stmt = con.prepareStatement(sql);
+
+							
+
+					ResultSet rs = stmt.executeQuery();
+
+
+
+					DefaultTableModel modelo = (DefaultTableModel) tbDados.getModel();
+
+					modelo.setNumRows(0);
+
+					while (rs.next()) {
+
+					
+
+						
+
+						modelo.addRow(new Object[]{rs.getString("id"), rs.getString("usuario"), rs.getString("senha")});
+
+						
+
+					}
+
+					
+
+					
+
+					
+
+					rs.close();
+
+					con.close();
+
+			
+
+				} catch (SQLException e1) {
+
+					// TODO Auto-generated catch block
+
+					e1.printStackTrace();
+
+				}	
+
+			
+
+		}});
+		btnListarDados.setBounds(291, 17, 110, 23);
+		panel_1.add(btnListarDados);
+		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 152, 414, 88);
+		contentPane.add(scrollPane);
+		
+		tbDados = new JTable();
+		tbDados.setModel(new DefaultTableModel(
+			new Object[][] {
+				{null, null, null},
+			},
+			new String[] {
+				"ID", "Usuario", "Senha"
+			}
+		) {
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			boolean[] columnEditables = new boolean[] {
+				false, true, true
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		tbDados.getColumnModel().getColumn(1).setResizable(false);
+		scrollPane.setViewportView(tbDados);
 	}
 }
