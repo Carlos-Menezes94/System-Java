@@ -106,7 +106,12 @@ public class Tela_de_cadastro extends JFrame {
 		btnSalvar = new JButton("Salvar");
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (tfUsuario.getText().equals("") || tfSenha.getText().equals("")) {
+					JOptionPane.showInternalMessageDialog(null, "Usuario/senha em branco.");
+					
+				}
 				
+					
 				try {
 					Connection con = Conexao.faz_conexao();
 					String sql ="insert into senhas_dados(usuario, senha) values(?, ?)";
@@ -120,7 +125,6 @@ public class Tela_de_cadastro extends JFrame {
 					stmt.execute();
 					
 					
-					stmt.close();
 					stmt.close();
 					
 					JOptionPane.showMessageDialog(null, "Usuario cadastrado!!!");
@@ -210,5 +214,4 @@ public class Tela_de_cadastro extends JFrame {
 		panel_1.add(tfBusca);
 		tfBusca.setColumns(10);
 	}
-
 }
