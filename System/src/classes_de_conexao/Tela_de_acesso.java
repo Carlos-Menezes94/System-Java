@@ -92,8 +92,8 @@ public class Tela_de_acesso extends JFrame {
 					
 
 					PreparedStatement stmt = con.prepareStatement(sql);
-				
 
+					
 					stmt.setString(1, tfUsuario.getText());
 					stmt.setString(2, new String(pfSenha.getPassword()));
 
@@ -102,13 +102,15 @@ public class Tela_de_acesso extends JFrame {
 					ResultSet rs = stmt.executeQuery();
 
 					
-
-					if(rs.next()) {			
+					if(rs.next()) {
 
 						
+						Tela_de_cadastro exibir = new Tela_de_cadastro ();
+						exibir.setVisible(true);
 						
 						setVisible(false);
 					}else {
+
 						JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto :(");
 
 					}
