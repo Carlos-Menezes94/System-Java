@@ -95,7 +95,8 @@ public class Tela_de_acesso extends JFrame {
 
 					
 					stmt.setString(1, tfUsuario.getText());
-					stmt.setString(2, new String(pfSenha.getPassword()));
+					String captura = new String(pfSenha.getPassword());
+					stmt.setString(2, captura);
 
 					
 
