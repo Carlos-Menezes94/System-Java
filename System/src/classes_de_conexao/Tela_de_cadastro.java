@@ -206,10 +206,17 @@ public class Tela_de_cadastro extends JFrame {
 		btnExcluir = new JButton("Excluir");
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				if(tfID.getText().equals("")){
+					JOptionPane.showMessageDialog(null, "Informe o ID");
+
+				}else {
+				
 				try {
 					Connection con = Conexao.faz_conexao();
 					
-					String sql= "delete from dados_senhas where id=?";
+					String sql= "delete from senhas_dados where id=?";
 					
 					
 					PreparedStatement stmt = con.prepareStatement(sql);
@@ -219,15 +226,20 @@ public class Tela_de_cadastro extends JFrame {
 					stmt.execute();
 					stmt.close();
 					con.close();
-				
-				
+					
+					JOptionPane.showMessageDialog(null, "Excluido!");
+					
+					tfUsuario.setText("");
+					tfSenha.setText("");
+					tfID.setText("");
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				
 				
-			}
+			}};
 		});
 		btnExcluir.setBounds(236, 17, 89, 23);
 		panel.add(btnExcluir);
@@ -249,20 +261,16 @@ public class Tela_de_cadastro extends JFrame {
 
 				}else {
 
-				
-
 				try {
 
 					Connection con = Conexao.faz_conexao();
-					String sql = "select *from dados_senhas where id like ? ";
+					String sql = "select *from senhas_dados where id like ? ";
 
 					
 					PreparedStatement stmt = con.prepareStatement(sql);
-
 					
 					stmt.setString(1, "%"+ tfBusca.getText());
 					
-
 					ResultSet rs = stmt.executeQuery();
 					
 
@@ -272,23 +280,18 @@ public class Tela_de_cadastro extends JFrame {
 						tfID.setText(rs.getString("id"));
 						tfUsuario.setText(rs.getString("usuario"));
 						tfSenha.setText(rs.getString("senha"));
-
-											
-
 					}
-							
-
+						
 					rs.close();
 					con.close();
-
-								
+							
 
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 
 				}	
 
-						}
+				}
 				
 				
 			}
@@ -310,7 +313,7 @@ public class Tela_de_cadastro extends JFrame {
 
 					Connection con = Conexao.faz_conexao();
 
-					String sql = "select *from dados_senhas";
+					String sql = "select *from senhas_dados";
 
 					
 
