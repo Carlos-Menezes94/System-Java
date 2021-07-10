@@ -40,6 +40,7 @@ public class Tela_de_cadastro extends JFrame {
 	private JScrollPane scrollPane;
 	private JTable tbDados;
 	private JButton btnAtualizar;
+	private JButton btnExcluir;
 
 	/**
 	 * Launch the application.
@@ -201,6 +202,35 @@ public class Tela_de_cadastro extends JFrame {
 		});
 		btnAtualizar.setBounds(124, 17, 89, 23);
 		panel.add(btnAtualizar);
+		
+		btnExcluir = new JButton("Excluir");
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					Connection con = Conexao.faz_conexao();
+					
+					String sql= "delete from dados_senhas where id=?";
+					
+					
+					PreparedStatement stmt = con.prepareStatement(sql);
+					
+					stmt.setString(1, tfID.getText());
+							
+					stmt.execute();
+					stmt.close();
+					con.close();
+				
+				
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+		btnExcluir.setBounds(236, 17, 89, 23);
+		panel.add(btnExcluir);
 		
 		panel_1 = new JPanel();
 		panel_1.setBorder(new TitledBorder(null, "Abrir dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
