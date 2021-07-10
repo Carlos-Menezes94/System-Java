@@ -81,10 +81,6 @@ public class Tela_de_cadastro extends JFrame {
 		
 		JMenuItem mntmSalvar = new JMenuItem("Salvar");
 		mntmSalvar.addActionListener(new ActionListener() {
-			
-			
-			//Metodo Salvar
-			
 			public void actionPerformed(ActionEvent e) {
 				
 				if (tfUsuario.getText().equals("") || tfSenha.getText().equals("")) {
@@ -95,9 +91,6 @@ public class Tela_de_cadastro extends JFrame {
 					acoes ac = new acoes(tfUsuario.getText(), tfSenha.getText() );
 					
 					ac.salvar();
-					
-					tfUsuario.setText("");
-					tfSenha.setText("");
 				}
 				
 				
