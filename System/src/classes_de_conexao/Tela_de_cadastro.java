@@ -48,6 +48,7 @@ public class Tela_de_cadastro extends JFrame {
 	private JButton btnAtualizar;
 	private JButton btnExcluir;
 	private JMenuBar menuBar;
+	private JMenuItem mntmAtualizar;
 
 	/**
 	 * Launch the application.
@@ -71,7 +72,7 @@ public class Tela_de_cadastro extends JFrame {
 	public Tela_de_cadastro() {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 388);
+		setBounds(100, 100, 468, 439);
 		
 		menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -81,6 +82,8 @@ public class Tela_de_cadastro extends JFrame {
 		
 		JMenuItem mntmSalvar = new JMenuItem("Salvar");
 		mntmSalvar.addActionListener(new ActionListener() {
+			
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				if (tfUsuario.getText().equals("") || tfSenha.getText().equals("")) {
@@ -91,6 +94,9 @@ public class Tela_de_cadastro extends JFrame {
 					acoes ac = new acoes(tfUsuario.getText(), tfSenha.getText() );
 					
 					ac.salvar();
+					
+					tfUsuario.setText("");
+					tfSenha.setText("");
 				}
 				
 				
@@ -98,6 +104,26 @@ public class Tela_de_cadastro extends JFrame {
 		});
 		mntmSalvar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
 		mnArquivos.add(mntmSalvar);
+		
+		mntmAtualizar = new JMenuItem("Atualizar");
+		mntmAtualizar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (tfUsuario.getText().equals("") || tfSenha.getText().equals("")) {
+					JOptionPane.showInternalMessageDialog(null, "Usuario/senha em branco.");
+					
+				} else {
+				acoes ac = new acoes(Integer.parseInt(tfID.getText()), tfUsuario.getText(), tfSenha.getText());
+				
+				ac.atualizar();
+				}
+				
+				tfUsuario.setText("");
+				tfSenha.setText("");
+			}
+		});
+		mntmAtualizar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.CTRL_MASK));
+		mnArquivos.add(mntmAtualizar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -194,7 +220,7 @@ public class Tela_de_cadastro extends JFrame {
 
 					try {
 					Connection con = Conexao.faz_conexao();
-					String sql = "update dados_senhas set usuario=?, senha=? where id=?";
+					String sql = "update senhas_dados set usuario=?, senha=? where id=?";
 
 					
 					PreparedStatement stmt = con.prepareStatement(sql);
@@ -281,7 +307,7 @@ public class Tela_de_cadastro extends JFrame {
 		panel_1.setBorder(new TitledBorder(null, "Abrir dados", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel_1.setBackground(new Color(0, 128, 0));
 		panel_1.setForeground(new Color(0, 0, 0));
-		panel_1.setBounds(23, 297, 411, 51);
+		panel_1.setBounds(23, 326, 411, 51);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
 		
