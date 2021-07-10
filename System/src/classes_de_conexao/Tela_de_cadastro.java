@@ -22,6 +22,12 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.KeyStroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.InputEvent;
 
 public class Tela_de_cadastro extends JFrame {
 
@@ -41,6 +47,7 @@ public class Tela_de_cadastro extends JFrame {
 	private JTable tbDados;
 	private JButton btnAtualizar;
 	private JButton btnExcluir;
+	private JMenuBar menuBar;
 
 	/**
 	 * Launch the application.
@@ -65,6 +72,32 @@ public class Tela_de_cadastro extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 388);
+		
+		menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		JMenu mnArquivos = new JMenu("Arquivos");
+		menuBar.add(mnArquivos);
+		
+		JMenuItem mntmSalvar = new JMenuItem("Salvar");
+		mntmSalvar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				if (tfUsuario.getText().equals("") || tfSenha.getText().equals("")) {
+					JOptionPane.showInternalMessageDialog(null, "Usuario/senha em branco.");
+					
+				} else {
+					
+					acoes ac = new acoes(tfUsuario.getText(), tfSenha.getText() );
+					
+					ac.salvar();
+				}
+				
+				
+			}
+		});
+		mntmSalvar.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK));
+		mnArquivos.add(mntmSalvar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
