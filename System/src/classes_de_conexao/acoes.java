@@ -10,6 +10,7 @@ public class acoes {
 
 	private int id;
 	private String usuario;
+	private String email;
 	private String senha;
 	
 	public acoes(int id_p) {
@@ -18,15 +19,17 @@ public class acoes {
 		
 	}
 	
-	public acoes(String us, String se) {
+	public acoes(String us, String em, String se) {
 		
 		this.usuario = us;
+		this.email = em;
 		this.senha = se;
 	}
 	
-	public acoes(int id_p, String us, String se) {	
+	public acoes(int id_p, String us, String em, String se) {	
 		
 		this.id = id_p;
+		this.email = em;
 		this.usuario = us;
 		this.senha = se;
 	}
@@ -38,13 +41,14 @@ public class acoes {
 		
 		try {
 			Connection con = Conexao.faz_conexao();
-			String sql ="insert into senhas_dados(usuario, senha) values(?, ?)";
+			String sql ="insert into dados_senhas(usuario, senha, email) values(?, ?, ?)";
 			
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
 			
 			stmt.setString(1, usuario);
-			stmt.setString(2, senha);
+			stmt.setString(2, email);
+			stmt.setString(3, senha);
 			stmt.execute();
 			
 			
@@ -68,15 +72,16 @@ public class acoes {
 		
 		try {
 			Connection con = Conexao.faz_conexao();
-			String sql = "update senhas_dados set usuario=?, senha=? where id=?";
+			String sql = "update dados_senhas set usuario=?, email=?, senha=? where id=?";
 
 			
 			PreparedStatement stmt = con.prepareStatement(sql);
 			
 
 			stmt.setString(1, usuario);
-			stmt.setString(2, senha);
-			stmt.setInt(3, id);
+			stmt.setString(2, email);
+			stmt.setString(3, senha);
+			stmt.setInt(4, id);
 			
 
 			stmt.execute();

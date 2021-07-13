@@ -1,5 +1,5 @@
 package classes_de_conexao;
-
+import java.util.Scanner;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -29,11 +29,17 @@ public class Tela_de_acesso extends JFrame {
 	private JPanel contentPane;
 	private JTextField tfUsuario;
 	private JPasswordField pfSenha;
+	private JButton btnRecuperarSenha;
+	private JLabel lblNoPossuiCadastro;
+	private JButton btnCadastrar;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	
+
+	
+	public static void main(String[] args)  {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -46,6 +52,13 @@ public class Tela_de_acesso extends JFrame {
 		});
 	}
 
+
+
+public void disposeJFrame(JFrame frame){
+    frame.setVisible(false);
+    frame.dispose();
+}
+	
 	/**
 	 * Create the frame.
 	 */
@@ -72,12 +85,13 @@ public class Tela_de_acesso extends JFrame {
 		contentPane.add(lblSenha);
 		
 		tfUsuario = new JTextField();
-		tfUsuario.setBounds(147, 48, 190, 39);
+		tfUsuario.setBounds(147, 53, 190, 28);
 		contentPane.add(tfUsuario);
 		tfUsuario.setColumns(10);
 		
+		
 		pfSenha = new JPasswordField();
-		pfSenha.setBounds(147, 127, 190, 39);
+		pfSenha.setBounds(147, 138, 190, 28);
 		contentPane.add(pfSenha);
 		
 		JButton btnEntrar = new JButton("Entrar");
@@ -106,13 +120,15 @@ public class Tela_de_acesso extends JFrame {
 					if(rs.next()) {
 
 						
-						Tela_de_cadastro exibir = new Tela_de_cadastro ();
+						Tela_home exibir = new Tela_home ();
 						exibir.setVisible(true);
+						
+						
 						
 						setVisible(false);
 					}else {
 
-						JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto :(");
+						JOptionPane.showMessageDialog(null, "Usuario/Senha incorreto :(", captura, JOptionPane.ERROR_MESSAGE);
 
 					}
 
@@ -129,7 +145,38 @@ public class Tela_de_acesso extends JFrame {
 				}
 			}
 		});
-		btnEntrar.setBounds(180, 239, 116, 28);
+		btnEntrar.setBounds(177, 208, 116, 28);
 		contentPane.add(btnEntrar);
+		
+		btnRecuperarSenha = new JButton("Recuperar senha");
+		btnRecuperarSenha.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Tela_de_recuperacao exibir = new Tela_de_recuperacao ();
+				exibir.setVisible(true);
+			
+			}
+		});
+		btnRecuperarSenha.setBounds(291, 330, 116, 28);
+		contentPane.add(btnRecuperarSenha);
+		
+		lblNoPossuiCadastro = new JLabel("N\u00E3o possui cadastro? clique logo abaixo para se cadastrar!");
+		lblNoPossuiCadastro.setForeground(Color.RED);
+		lblNoPossuiCadastro.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 9));
+		lblNoPossuiCadastro.setBounds(10, 278, 271, 60);
+		contentPane.add(lblNoPossuiCadastro);
+		
+		btnCadastrar = new JButton("Cadastrar");
+		btnCadastrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Tela_cadastro exibir = new Tela_cadastro ();
+				exibir.setVisible(true);
+			}
+		});
+		btnCadastrar.setBounds(8, 330, 116, 28);
+		contentPane.add(btnCadastrar);
 	}
 }
+
+
