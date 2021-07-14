@@ -220,6 +220,7 @@ public class Tela_cadastro extends JFrame {
 				
 				Tela_de_acesso exibir = new Tela_de_acesso ();
 				exibir.setVisible(true);
+				Tela_cadastro.this.dispose();
 			}
 		});
 		btnVoltarAcesso.setBounds(315, 17, 89, 23);

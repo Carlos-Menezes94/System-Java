@@ -122,7 +122,7 @@ public void disposeJFrame(JFrame frame){
 						
 						Tela_home exibir = new Tela_home ();
 						exibir.setVisible(true);
-						
+						Tela_de_acesso.this.dispose();
 						
 						
 						setVisible(false);
