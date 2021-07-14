@@ -33,4 +33,9 @@ public class Conexao {
 
 	}
 
+	public static String getString(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

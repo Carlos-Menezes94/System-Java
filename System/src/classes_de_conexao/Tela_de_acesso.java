@@ -45,6 +45,7 @@ public class Tela_de_acesso extends JFrame {
 				try {
 					Tela_de_acesso frame = new Tela_de_acesso();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -123,6 +124,7 @@ public void disposeJFrame(JFrame frame){
 						Tela_home exibir = new Tela_home ();
 						exibir.setVisible(true);
 						Tela_de_acesso.this.dispose();
+
 						
 						
 						setVisible(false);
@@ -154,6 +156,8 @@ public void disposeJFrame(JFrame frame){
 				
 				Tela_de_recuperacao exibir = new Tela_de_recuperacao ();
 				exibir.setVisible(true);
+				Tela_de_acesso.this.dispose();
+
 			
 			}
 		});
@@ -172,6 +176,8 @@ public void disposeJFrame(JFrame frame){
 				
 				Tela_cadastro exibir = new Tela_cadastro ();
 				exibir.setVisible(true);
+				Tela_de_acesso.this.dispose();
+
 			}
 		});
 		btnCadastrar.setBounds(8, 330, 116, 28);

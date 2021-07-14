@@ -1,5 +1,9 @@
 package classes_de_conexao;
 
+import java.awt.Button;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,6 +16,8 @@ public class acoes {
 	private String usuario;
 	private String email;
 	private String senha;
+	private Button btnCancel;
+	
 	
 	public acoes(int id_p) {
 		
@@ -34,6 +40,24 @@ public class acoes {
 		this.senha = se;
 	}
 
+	
+	  public static void main(String args []) throws NoSuchAlgorithmException,
+	   UnsupportedEncodingException {
+
+	       String senha = "admin";
+
+	       MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+	       byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+
+	       StringBuilder hexString = new StringBuilder();
+	       for (byte b : messageDigest) {
+	         hexString.append(String.format("%02X", 0xFF & b));
+	       }
+	       String senhahex = hexString.toString();
+
+	       System.out.println(senhahex);
+	   }
+	
 	
 	//Inicio - Metodo Salvar
 
@@ -99,6 +123,20 @@ public class acoes {
 		}	
 				
 		
+	}
+	
+	
+	public void logout () {
+		
+
+	}
+
+	public Button getBtnCancel() {
+		return btnCancel;
+	}
+
+	public void setBtnCancel(Button btnCancel) {
+		this.btnCancel = btnCancel;
 	}
 	
 }

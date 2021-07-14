@@ -11,6 +11,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.Component;
+
+import javax.swing.AbstractButton;
 import javax.swing.Box;
 import javax.swing.JTextPane;
 import javax.swing.JLabel;
@@ -23,13 +25,19 @@ import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JEditorPane;
 
+
+
 public class Tela_home extends JFrame {
+
+	private AbstractButton display;
 
 	/**
 	 * 
 	 */
 	
-	
+	public void setNome(String nome){
+		display.setText(nome);
+	}
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -53,13 +61,16 @@ public class Tela_home extends JFrame {
 		});
 	}
 
+
+			
+			
 	/**
 	 * Create the frame.
 	 */
 	public Tela_home() {
 		setTitle("Pagina Inicial");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 348);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -75,31 +86,39 @@ public class Tela_home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				Tela_de_atualizacao exibir = new Tela_de_atualizacao ();
 				exibir.setVisible(true);
+				Tela_home.this.dispose();
+
 				
 			}
 		});
-		btnAtualizarDados.setBounds(10, 227, 123, 23);
+		btnAtualizarDados.setBounds(10, 257, 123, 23);
 		contentPane.add(btnAtualizarDados);
 		
-		JButton btnNewButton_2 = new JButton("New button");
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btnLogout = new JButton("Logout");
+		btnLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				Tela_de_acesso exibir = new Tela_de_acesso ();
+				exibir.setVisible(true);
+				Tela_home.this.dispose();
+				
 			}
 		});
-		btnNewButton_2.setBounds(220, 227, 89, 23);
-		contentPane.add(btnNewButton_2);
-		
-		JButton btnNewButton_3 = new JButton("New button");
-		btnNewButton_3.setBounds(319, 227, 89, 23);
-		contentPane.add(btnNewButton_3);
+		btnLogout.setBounds(335, 257, 89, 23);
+		contentPane.add(btnLogout);
 		
 		JLabel lblBemvindo = new JLabel("Bem vindo,");
 		lblBemvindo.setForeground(Color.RED);
 		lblBemvindo.setFont(new Font("Microsoft New Tai Lue", Font.BOLD, 18));
-		lblBemvindo.setBounds(22, 11, 96, 43);
+		lblBemvindo.setBounds(28, 11, 96, 43);
 		contentPane.add(lblBemvindo);
+		
+		JLabel display = new JLabel("");
+		display.setBounds(134, 26, 46, 14);
+		contentPane.add(display);
+		
+		
 	}
 }
-
 
 
